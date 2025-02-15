@@ -1,21 +1,24 @@
 """" Matching algorithm for club-connect """
 import json
 from flask import Flask, request,  jsonify
-import openai
+from openai import OpenAI
 from dotenv import load_dotenv
 import os
+from flask_cors import CORS, cross_origin
 
 
 load_dotenv()
-from flask_cors import CORS
+key = os.getenv('OPENAI_API_KEY')
+print(f"Loaded API Key: {os.getenv('OPENAI_API_KEY')}")
+client = OpenAI(api_key=key)
 
 app = Flask(__name__)
-app.config["SECRET_KEY"] = os.getenv('SECRET_KEY')
 CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 
 
 @app.route('/api/clubs', methods=["POST"])
+@cross_origin()
 def match():
     """function takes in user object and a club list file and returns a matching clubs"""
     data = request.get_json()
@@ -76,7 +79,6 @@ def summarize_description(club_list):
 
     # return club_list
     """summarizes club description"""
-    openai.api_key = app.config["SECRET_KEY"]
 
     with open("preprompt.txt", "r") as f:
         system_prompt = f.read().strip()
@@ -89,11 +91,18 @@ def summarize_description(club_list):
         messages.append({"role": "user", "content": club_list[i]["description"]})
 
         try:
-            response = openai.chat.completions.create(
-                model="gpt-3.5-turbo",
+            # response = openai.chat.completions.create(
+            #     model="gpt-3.5-turbo",
+            #     messages=messages
+            # )
+            completion = client.chat.completions.create(
+                model="gpt-4o",
+                store=True,
                 messages=messages
+
             )
-            club_list[i]["description"] = response.choices[0].message.content
+
+            club_list[i]["description"] = completion.choices[0].message.content
         except Exception as e:
             print(f"Error during OpenAI API call: {e}")
             club_list[i]["description"] = "Error summarizing description"
