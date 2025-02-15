@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart, faX } from "@fortawesome/free-solid-svg-icons";
 import { motion, AnimatePresence } from "framer-motion";
@@ -70,6 +70,7 @@ function Matching() {
   const [clubIndex, setClubIndex] = useState(0);
   const [matches, setMatches] = useState([]);
   const [animationDirection, setAnimationDirection] = useState(0);
+  const [loading, setLoading] = useState(true);
 
   const { name, url, description, tags } = clubs[clubIndex];
 
@@ -96,29 +97,42 @@ function Matching() {
 
   console.log(matches);
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+
+    // Clean up the timeout to prevent memory leaks
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <div className="flex justify-center items-center h-screen">
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={clubIndex}
-          initial={{
-            x: animationDirection === 0 ? 0 : animationDirection * 200,
-            opacity: 0,
-          }}
-          animate={{ x: 0, opacity: 1 }}
-          exit={{ x: animationDirection * -200, opacity: 0 }}
-          transition={{ duration: 0.3, ease: "easeInOut" }}
-        >
-          <ClubCard
-            name={name}
-            link={url}
-            description={description}
-            tags={tags}
-            onLike={onLike}
-            onDislike={onDislike}
-          />
-        </motion.div>
-      </AnimatePresence>
+      {loading ? (
+        <span className="loading loading-ring text-primary w-[200px]"></span>
+      ) : (
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={clubIndex}
+            initial={{
+              x: animationDirection === 0 ? 0 : animationDirection * 200,
+              opacity: 0,
+            }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: animationDirection * -200, opacity: 0 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+          >
+            <ClubCard
+              name={name}
+              link={url}
+              description={description}
+              tags={tags}
+              onLike={onLike}
+              onDislike={onDislike}
+            />
+          </motion.div>
+        </AnimatePresence>
+      )}
     </div>
   );
 }
