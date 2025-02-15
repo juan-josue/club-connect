@@ -1,28 +1,21 @@
 """" Matching algorithm for club-connect """
 import json
+from flask import Flask, request,  jsonify
+
+app = Flask(__name__)
 
 
-class User:
-    """ User class
-    """
-    pref: list
-
-    def __init__(self, pref: list) -> None:
-        """ initializes club """
-        self.pref = pref
-
-
-def match(user: User, clubs_file: str) -> list:
+@app.route('/api/clubs', methods=["POST"])
+def match():
     """function takes in user object and a club list file and returns a matching clubs"""
-
-    club_pref_list = user.pref
+    data = request.get_json()
+    club_pref_list = data.get("preferences", [])
     club_rank_pref = dict()
     matching_clubs = []
 
-
     # checks if user has any preferences
     if club_pref_list is not []:
-        with open(clubs_file, 'r') as file:
+        with open("j.json", 'r') as file:
             data = json.load(file)
 
         for club in data["clubs"]:
@@ -39,7 +32,12 @@ def match(user: User, clubs_file: str) -> list:
             else:
                 break
 
-        return matching_clubs
+        return jsonify(matching_clubs)
 
     else:
-        return []
+        return jsonify([])
+
+
+if __name__ == "__main__":
+    app.run(debug=True)
+
