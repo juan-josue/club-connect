@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
@@ -72,9 +73,14 @@ function Preferences() {
     style: [],
   });
   const [stepCount, setStepCount] = useState(0);
+  const navigate = useNavigate();
 
   const onContinue = () => {
-    setStepCount(Math.min(stepCount + 1, 3));
+    if (stepCount === 3) {
+      navigate("/matching");
+    } else {
+      setStepCount(Math.min(stepCount + 1, 3));
+    }
   };
 
   const onBack = () => {
