@@ -77,7 +77,7 @@ function Preferences() {
 
   const onContinue = () => {
     if (stepCount === 3) {
-      navigate("/matching");
+      navigate("/matching", { state: { preferences: tags } });
     } else {
       setStepCount(Math.min(stepCount + 1, 3));
     }
