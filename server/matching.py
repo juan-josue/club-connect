@@ -19,6 +19,7 @@ def match(user: User, clubs_file: str) -> list:
     club_rank_pref = dict()
     matching_clubs = []
 
+
     # checks if user has any preferences
     if club_pref_list is not []:
         with open(clubs_file, 'r') as file:
