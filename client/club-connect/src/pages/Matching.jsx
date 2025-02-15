@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart, faX } from "@fortawesome/free-solid-svg-icons";
+import { motion, AnimatePresence } from "framer-motion";
 
 const clubs = [
   {
@@ -68,30 +69,56 @@ function ClubCard({ name, link, description, tags, onLike, onDislike }) {
 function Matching() {
   const [clubIndex, setClubIndex] = useState(0);
   const [matches, setMatches] = useState([]);
+  const [animationDirection, setAnimationDirection] = useState(0);
 
   const { name, url, description, tags } = clubs[clubIndex];
 
+  const handleAnimationEnd = (callback) => {
+    setTimeout(() => {
+      callback();
+    }, 310);
+  };
+
   const onLike = () => {
-    setMatches([...matches, clubs[clubIndex]]);
-    setClubIndex(Math.min(clubIndex + 1, clubs.length - 1));
+    setAnimationDirection(-1);
+    handleAnimationEnd(() => {
+      setMatches([...matches, clubs[clubIndex]]);
+      setClubIndex((prev) => Math.min(prev + 1, clubs.length - 1));
+    });
   };
 
   const onDislike = () => {
-    setClubIndex(Math.min(clubIndex + 1, clubs.length - 1));
+    setAnimationDirection(1);
+    handleAnimationEnd(() => {
+      setClubIndex((prev) => Math.min(prev + 1, clubs.length - 1));
+    });
   };
 
-  console.log(matches)
+  console.log(matches);
 
   return (
     <div className="flex justify-center items-center h-screen">
-      <ClubCard
-        name={name}
-        link={url}
-        description={description}
-        tags={tags}
-        onLike={onLike}
-        onDislike={onDislike}
-      />
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={clubIndex}
+          initial={{
+            x: animationDirection === 0 ? 0 : animationDirection * 200,
+            opacity: 0,
+          }}
+          animate={{ x: 0, opacity: 1 }}
+          exit={{ x: animationDirection * -200, opacity: 0 }}
+          transition={{ duration: 0.3, ease: "easeInOut" }}
+        >
+          <ClubCard
+            name={name}
+            link={url}
+            description={description}
+            tags={tags}
+            onLike={onLike}
+            onDislike={onDislike}
+          />
+        </motion.div>
+      </AnimatePresence>
     </div>
   );
 }
