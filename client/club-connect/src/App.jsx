@@ -1,15 +1,24 @@
-import { useState } from 'react'
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
+import Login from "./pages/Login";
+import Preferences from "./pages/Preferences";
+import Matching from "./pages/Matching";
+import Results from "./pages/Results";
+
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
-      <div>
-        <h1 className='text-3xl font-bold underline'>Hello World!</h1>
-        <button class="btn btn-primary">Primary</button>
-      </div>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/preferences" element={<Preferences />} />
+          <Route path="/matching" element={<Matching />} />
+          <Route path="/results" element={<Results />} />
+        </Routes>
+      </Router>
     </>
   )
 }
