@@ -11,7 +11,8 @@ from flask_cors import CORS
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = os.getenv('SECRET_KEY')
-CORS(app)
+CORS(app, resources={r"/api/*": {"origins": "*"}})
+
 
 
 @app.route('/api/clubs', methods=["POST"])
