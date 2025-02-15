@@ -53,8 +53,6 @@ function Matching() {
   const location = useLocation();
   const { preferences } = location.state || { preferences: [] };
 
-  const { name, url, description, tags } = clubs[clubIndex];
-
   const handleAnimationEnd = (callback) => {
     setTimeout(() => {
       callback();
@@ -81,12 +79,17 @@ function Matching() {
   useEffect(() => {
     const fetchClubs = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/clubs", {
+        console.log("what were sending: ", {
+          preferences: Object.values(preferences).flat(),
+        });
+        const response = await fetch("http://127.0.0.1:5000/api/clubs", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ preferences }),
+          body: JSON.stringify({
+            preferences: Object.values(preferences).flat(),
+          }),
         });
 
         if (!response.ok) {
@@ -94,6 +97,7 @@ function Matching() {
         }
 
         const data = await response.json();
+        console.log("what we got back: ", { data });
         setClubs(data);
         setLoading(false);
       } catch (error) {
@@ -121,14 +125,16 @@ function Matching() {
             exit={{ x: animationDirection * -200, opacity: 0 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
           >
-            <ClubCard
-              name={name}
-              link={url}
-              description={description}
-              tags={tags}
-              onLike={onLike}
-              onDislike={onDislike}
-            />
+            {clubs && (
+              <ClubCard
+                name={clubs[clubIndex]["name"]}
+                link={clubs[clubIndex]["link"]}
+                description={clubs[clubIndex]["description"]}
+                tags={clubs[clubIndex]["tags"]}
+                onLike={onLike}
+                onDislike={onDislike}
+              />
+            )}
           </motion.div>
         </AnimatePresence>
       )}
