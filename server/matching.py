@@ -92,7 +92,7 @@ def summarize_description(club_list):
                 model="gpt-3.5-turbo",
                 messages=messages
             )
-            club_list[i]["description"] = response['choices'][0]['message']['content']
+            club_list[i]["description"] = response.choices[0].message.content
         except Exception as e:
             print(f"Error during OpenAI API call: {e}")
             club_list[i]["description"] = "Error summarizing description"
