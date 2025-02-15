@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart, faX } from "@fortawesome/free-solid-svg-icons";
 
@@ -26,37 +26,72 @@ const clubs = [
   },
 ];
 
+function ClubCard({ name, link, description, tags, onLike, onDislike }) {
+  return (
+    <div className="flex flex-col w-[450px] h-[650px] gap-4 bg-base-200 p-8 rounded-2xl shadow-xl">
+      <div className="flex h-[300px] bg-gradient-to-r from-blue-300 to-pink-200 justify-center items-center rounded p-8">
+        <h2 className="text-base-100 text-3xl font-bold">{name}</h2>
+      </div>
+
+      <div className="flex gap-4 justify-start">
+        {tags.map((tag, index) => {
+          return (
+            <div key={index} className="badge badge-secondary">
+              {tag}
+            </div>
+          );
+        })}
+      </div>
+
+      <p>
+        {description.length > 250
+          ? `${description.slice(0, 250)}...`
+          : description}
+      </p>
+
+      <a className="link" href={link} target="_blank">
+        Club Page
+      </a>
+
+      <div className="flex w-full justify-center gap-16">
+        <button onClick={onDislike} className="btn btn-circle bg-base-100 p-8">
+          <FontAwesomeIcon icon={faX} className="text-primary" />
+        </button>
+        <button onClick={onLike} className="btn btn-circle bg-primary p-8">
+          <FontAwesomeIcon icon={faHeart} className="text-white" />
+        </button>
+      </div>
+    </div>
+  );
+}
+
 function Matching() {
+  const [clubIndex, setClubIndex] = useState(0);
+  const [matches, setMatches] = useState([]);
+
+  const { name, url, description, tags } = clubs[clubIndex];
+
+  const onLike = () => {
+    setMatches([...matches, clubs[clubIndex]]);
+    setClubIndex(Math.min(clubIndex + 1, clubs.length - 1));
+  };
+
+  const onDislike = () => {
+    setClubIndex(Math.min(clubIndex + 1, clubs.length - 1));
+  };
+
+  console.log(matches)
+
   return (
     <div className="flex justify-center items-center h-screen">
-      <div className="flex flex-col w-[450px] h-[650px] gap-4 bg-base-200 p-8 rounded-2xl">
-        <div className="flex h-[300px] bg-gradient-to-r from-blue-300 to-pink-200 justify-center items-center rounded">
-          <h2 className="text-base-100 text-3xl font-bold">Club Name</h2>
-        </div>
-
-        <div className="flex gap-4 justify-start">
-          <div className="badge badge-secondary">Tag 1</div>
-          <div className="badge badge-secondary">Tag 2</div>
-          <div className="badge badge-secondary">Tag 3</div>
-        </div>
-
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Reprehenderit, fugit dolores? Unde nulla quam ea veritatis tempora
-          ipsam architecto dicta.
-        </p>
-
-        <a className="link">Socials</a>
-
-        <div className="flex w-full justify-center gap-16">
-          <button className="btn btn-circle bg-base-100 p-8">
-            <FontAwesomeIcon icon={faX} className="text-white" />
-          </button>
-          <button className="btn btn-circle bg-primary p-8">
-            <FontAwesomeIcon icon={faHeart} className="text-white" />
-          </button>
-        </div>
-      </div>
+      <ClubCard
+        name={name}
+        link={url}
+        description={description}
+        tags={tags}
+        onLike={onLike}
+        onDislike={onDislike}
+      />
     </div>
   );
 }
