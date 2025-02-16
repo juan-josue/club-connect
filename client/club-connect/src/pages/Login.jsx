@@ -62,7 +62,7 @@ function Login() {
             <p>
               Don't have an account?{" "}
               <a className="link" onClick={() => navigate("/signup")}>
-                Sign up
+                Sign Up
               </a>
             </p>
           </div>
@@ -89,7 +89,7 @@ function Login() {
               className="btn btn-primary"
               onClick={handleLogin}
             >
-              Sign up
+              Log In
             </button>
           </div>
         </div>
