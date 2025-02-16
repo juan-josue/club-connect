@@ -5,6 +5,7 @@ from openai import OpenAI
 from dotenv import load_dotenv
 import os
 from flask_cors import CORS, cross_origin
+from module import db, User
 
 
 load_dotenv()
@@ -14,6 +15,13 @@ client = OpenAI(api_key=key)
 
 app = Flask(__name__)
 CORS(app, resources={r"/api/*": {"origins": "*"}})
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///users.db"
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+
+db.init_app(app)
+
+with app.app_context():
+    db.create_all()
 
 
 @app.route('/api/clubs', methods=["POST"])
@@ -81,6 +89,43 @@ def summarize_description(club_list):
 
     return club_list
 
+
+@app.route("/register", methods=["POST"])
+def register():
+    data = request.get_json()
+    utorid = data.get("utorid")
+
+    if not utorid or not data.get("password"):
+        return jsonify({"error": "UTORid and password are required"})
+
+    if User.query.filter_by(utorid=utorid).first():
+        return jsonify({"error": "UTORid already exists"})
+
+    new_user = User(
+        first_name=data.get("firstName"),
+        last_name=data.get("lastName"),
+        utorid=utorid,
+        password=data.get("password")
+    )
+
+    db.session.add(new_user)
+    db.session.commit()
+
+    return jsonify({"message": "Registration successful", "user": new_user.to_dict()})
+
+
+@app.route("/login", methods=["POST"])
+def login():
+    data = request.get_json()
+    utorid = data.get("utorid")
+    password = data.get("password")
+
+    user = User.query.filter_by(utorid=utorid, password=password).first()
+
+    if not user:
+        return jsonify({"error": "Invalid UTORid or password"})
+
+    return jsonify({"message": "Login successful", "user": user.to_dict()})
 
 if __name__ == "__main__":
     app.run(debug=True)
