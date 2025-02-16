@@ -15,7 +15,7 @@ With nearly 1,500 clubs at UofT, students often struggle to find the ones that m
 - Secure Authentication – Uses SQLAlchemy to manage user accounts securely.
 
 **Demo**  
-Video Demo with pictures and additional information on Devpost: [Devpost](https://devpost.com/software/memory-lane-pa6cqu)
+Video Demo with pictures and additional information on Devpost: [Devpost](https://devpost.com/software/club-connect-8x9bsg)
 
 **Pictures**
 ![Login Page with Video Background](https://d112y698adiu2z.cloudfront.net/photos/production/software_photos/003/268/768/datas/gallery.jpg)  
