@@ -24,10 +24,10 @@ function ClubCard({ name, link, description, tags, onLike, onDislike, gradient }
         <h2 className="text-base-100 text-3xl font-bold">{name}</h2>
       </div>
 
-      <div className="flex gap-4 justify-start">
+      <div className="flex gap-2 justify-start flex-wrap">
         {tags.map((tag, index) => {
           return (
-            <div key={index} className="badge badge-secondary">
+            <div key={index} className="badge badge-secondary text-white">
               {tag}
             </div>
           );
@@ -154,7 +154,7 @@ function Matching() {
             {clubs && (
               <ClubCard
                 name={clubs[clubIndex]["name"]}
-                link={clubs[clubIndex]["link"]}
+                link={clubs[clubIndex]["url"]}
                 description={clubs[clubIndex]["description"]}
                 tags={clubs[clubIndex]["tags"]}
                 onLike={onLike}

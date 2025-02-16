@@ -109,8 +109,8 @@ function Signup() {
           <hr className="border-t border-gray-200" />
 
           <p className="text-center text-lg">
-            Club connect matches you with the perfect clubs based on your
-            interests.
+            Think of it as Tinder... but for finding your perfect club match.
+            Swipe, connect, and join your new favorite community!
           </p>
         </div>
       </div>

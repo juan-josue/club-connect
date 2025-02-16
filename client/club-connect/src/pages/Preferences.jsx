@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { motion } from "framer-motion";
 
 function Step({
   step,
@@ -12,7 +13,14 @@ function Step({
   pageDetails: { stepName, header, body, tags },
 }) {
   return (
-    <>
+    <motion.div
+      key={step}
+      initial={{ opacity: 0, x: 50 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: -50 }}
+      transition={{ duration: 0.5, ease: "easeInOut" }}
+      className="flex flex-col gap-16"
+    >
       {/* back navigation */}
       <div className="flex gap-4">
         {step !== 0 && (
@@ -61,7 +69,7 @@ function Step({
           <li className={`step ${step >= 3 && "step-primary"}`}>Style</li>
         </ul>
       </div>
-    </>
+    </motion.div>
   );
 }
 

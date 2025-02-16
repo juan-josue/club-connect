@@ -21,10 +21,10 @@ function ClubCard({ name, link, description, tags, gradient, onBack }) {
           <h2 className="text-base-100 text-3xl font-bold">{name}</h2>
         </div>
 
-        <div className="flex gap-4 justify-start">
+        <div className="flex gap-2 justify-start flex-wrap">
           {tags.map((tag, index) => {
             return (
-              <div key={index} className="badge badge-secondary">
+              <div key={index} className="badge badge-secondary text-white">
                 {tag}
               </div>
             );
@@ -37,11 +37,7 @@ function ClubCard({ name, link, description, tags, gradient, onBack }) {
             : description}
         </p>
 
-        <a className="link" href={link} target="_blank">
-          Club Page
-        </a>
-
-        <button className="btn btn-primary w-full">Apply?</button>
+        <button onClick={() => window.open(link, "_blank")} className="btn btn-primary w-full">Apply?</button>
       </div>
     </div>
   );
@@ -75,9 +71,9 @@ function Results() {
           onBack={onBack}
         />
       ) : (
-        <div className="flex flex-col gap-16 w-[416px] overflow-y-scroll">
+        <div className="flex flex-col items-center gap-16 w-[700px] overflow-y-scroll">
           {/* text */}
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 w-[400px]">
             <h2 className="text-3xl">{`It's a match 🩵!`}</h2>
             <p className="text-lg">
               {`These clubs are waiting for you! Take the next step and make it official.`}
@@ -85,7 +81,13 @@ function Results() {
           </div>
 
           {/* match grid */}
-          <div className="grid grid-cols-2 gap-4">
+          <div className={`grid gap-4 ${
+              results.length <= 4
+                ? "grid-cols-2"
+                : results.length <= 9
+                ? "grid-cols-3"
+                : "grid-cols-4"
+            }`}>
             {results.map((club, index) => (
               <div
                 key={index}
