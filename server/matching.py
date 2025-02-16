@@ -35,7 +35,7 @@ def match():
 
     # checks if user has any preferences
     if club_pref_list is not []:
-        with open("j.json", 'r') as file:
+        with open("club_data.json", 'r') as file:
             data = json.load(file)
 
         for club in data["clubs"]:
@@ -45,14 +45,14 @@ def match():
 
         # finds the first 20 clubs with the most matches
         for key in club_rank_pref.keys():
-            if len(matching_clubs) != 20:
+            if len(matching_clubs) != 10:
                 for club in data["clubs"]:
                     if club["name"] == key:
                         matching_clubs.append(club)
             else:
                 break
 
-        matching_clubs = summarize_description(matching_clubs)
+        # matching_clubs = summarize_description(matching_clubs)
 
         return jsonify(matching_clubs)
 

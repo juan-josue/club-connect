@@ -106,7 +106,7 @@ function Signup() {
             </button>
           </div>
 
-          <hr class="border-t border-gray-200" />
+          <hr className="border-t border-gray-200" />
 
           <p className="text-center text-lg">
             Club connect matches you with the perfect clubs based on your

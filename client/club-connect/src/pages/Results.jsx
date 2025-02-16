@@ -4,6 +4,8 @@ import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { useLocation } from "react-router-dom";
 
 function ClubCard({ name, link, description, tags, gradient, onBack }) {
+  console.log(link)
+
   return (
     <div className="flex flex-col gap-8">
       <div className="flex gap-4">
@@ -51,6 +53,8 @@ function Results() {
   const location = useLocation();
   const { results } = location.state || { results: [] };
 
+  console.log('matches', results)
+
   const onSelect = (club) => {
     setSelectedClub(club);
   };
@@ -64,7 +68,7 @@ function Results() {
       {selectedClub ? (
         <ClubCard
           name={selectedClub["name"]}
-          link={selectedClub["link"]}
+          link={selectedClub["url"]}
           description={selectedClub["description"]}
           tags={selectedClub["tags"]}
           gradient={selectedClub["gradient"]}
@@ -88,7 +92,7 @@ function Results() {
                 onClick={() => onSelect(club)}
                 className={`flex h-[200px] w-[200px] bg-gradient-to-r ${club.gradient} justify-center items-center rounded-3xl p-8`}
               >
-                <h2 className="text-base-100 text-2xl font-bold">
+                <h2 className="text-base-100 text-xl font-bold">
                   {club.name}
                 </h2>
               </div>

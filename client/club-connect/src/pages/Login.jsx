@@ -87,7 +87,7 @@ function Login() {
             </button>
           </div>
 
-          <hr class="border-t border-gray-200" />
+          <hr className="border-t border-gray-200" />
 
           <p className="text-center text-lg">
             Think of it as Tinder... but for finding your perfect club match.
