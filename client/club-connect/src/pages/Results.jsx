@@ -74,7 +74,7 @@ function Results() {
         <div className="flex flex-col gap-16 w-[416px] overflow-y-scroll">
           {/* text */}
           <div className="flex flex-col gap-4">
-            <h2 className="text-3xl">{`It's a match!`}</h2>
+            <h2 className="text-3xl">{`It's a match 🩵!`}</h2>
             <p className="text-lg">
               {`These clubs are waiting for you! Take the next step and make it official.`}
             </p>

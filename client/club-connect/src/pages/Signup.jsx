@@ -55,9 +55,9 @@ function Signup() {
         {/* log in form */}
         <div className="flex flex-col justify-center gap-16 p-16 w-1/2">
           <div className="flex flex-col gap-4">
-            <h1 className="text-4xl font-bold">Sign Up</h1>
+            <h1 className="text-4xl font-bold">Ready to Meet Your Match? 💌</h1>
             <p>
-              Already have an account?{" "}
+              Been here before?{" "}
               <a className="link" onClick={() => navigate("/")}>
                 Log In
               </a>

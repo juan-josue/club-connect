@@ -53,9 +53,11 @@ function Login() {
         {/* log in form */}
         <div className="flex flex-col justify-center gap-16 p-16 w-1/2">
           <div className="flex flex-col gap-4">
-            <h1 className="text-4xl font-bold">Log in</h1>
+            <h1 className="text-4xl font-bold">
+              Welcome back, club explorer! 🌟
+            </h1>
             <p>
-              Don't have an account?{" "}
+              First time?{" "}
               <a className="link" onClick={() => navigate("/signup")}>
                 Sign Up
               </a>
@@ -88,8 +90,8 @@ function Login() {
           <hr class="border-t border-gray-200" />
 
           <p className="text-center text-lg">
-            Club connect matches you with the perfect clubs based on your
-            interests.
+            Think of it as Tinder... but for finding your perfect club match.
+            Swipe, connect, and join your new favorite community!
           </p>
         </div>
       </div>

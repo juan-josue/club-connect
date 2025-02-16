@@ -105,14 +105,14 @@ function Preferences() {
   const pageDetails = [
     {
       stepName: "Campus",
-      header: "Which campuses?",
-      body: "Select which of the three Unviersity of Toronto campuses you'd like be matched with.",
+      header: "Who's your campus crush? 💘",
+      body: "Swipe right on St. George, Scarborough, or Mississauga—or all three!",
       tags: ["UTM", "St George", "UTSC"],
     },
     {
       stepName: "Interests",
-      header: "What sort of things are you into?",
-      body: "Select some of the following key words that best resonatte with you.",
+      header: "What are you into? 🎯",
+      body: "Pick some keywords that resonate with you. The more you choose, the better your matches!",
       tags: [
         "AI",
         "Architecture",
@@ -138,14 +138,14 @@ function Preferences() {
     },
     {
       stepName: "Time",
-      header: "What's your availability look like?",
-      body: "Select what level of time commitment are you looking for.",
+      header: "Busy bee or free as a bird? 🐝",
+      body: "Let us know how much time you want to spend. From once-a-week chill to full dedication, it's all good.",
       tags: ["Low Commitment", "Medium Commitment", "High Commitment"],
     },
     {
       stepName: "Style",
-      header: "What engagement matches your vibe?",
-      body: "Select which club engagement style best suits you.",
+      header: "What’s your club energy? 🔥",
+      body: "Competitive edge, social butterfly, or professional networker—find your perfect club fit.",
       tags: [
         "Casual",
         "Competitive",
