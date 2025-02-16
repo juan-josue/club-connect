@@ -16,7 +16,6 @@ app = Flask(__name__)
 CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 
-
 @app.route('/api/clubs', methods=["POST"])
 @cross_origin()
 def match():
@@ -54,30 +53,6 @@ def match():
 
 
 def summarize_description(club_list):
-    # """summarizes club description"""
-    # openai.api_key = app.config["SECRET_KEY"]
-    #
-    # with open("preprompt.txt", "r") as f:
-    #     system_prompt = f.read().strip()
-    #
-    # messages = [
-    #     {"role": "system", "content": system_prompt}
-    # ]
-    # # get initial response
-    # openai.chat.completions.create(
-    #     model="gpt-3.5-turbo",
-    #     messages=messages)
-    #
-    # for i in range(len(club_list)):
-    #     messages.append({"role": "user", "content": club_list[i]["description"]})
-    #     response = openai.chat.completions.create(
-    #         model="gpt-3.5-turbo",
-    #         messages=messages)
-    #
-    #     club_list[i]["description"] = response.choices[0].message.content
-    #
-
-    # return club_list
     """summarizes club description"""
 
     with open("preprompt.txt", "r") as f:
@@ -91,10 +66,7 @@ def summarize_description(club_list):
         messages.append({"role": "user", "content": club_list[i]["description"]})
 
         try:
-            # response = openai.chat.completions.create(
-            #     model="gpt-3.5-turbo",
-            #     messages=messages
-            # )
+
             completion = client.chat.completions.create(
                 model="gpt-4o",
                 store=True,
@@ -105,7 +77,7 @@ def summarize_description(club_list):
             club_list[i]["description"] = completion.choices[0].message.content
         except Exception as e:
             print(f"Error during OpenAI API call: {e}")
-            club_list[i]["description"] = "Error summarizing description"
+            #club_list[i]["description"] = "Error summarizing description"
 
     return club_list
 
