@@ -29,7 +29,6 @@ function Login() {
     }
   };
 
-
   return (
     <>
       <div className="flex h-screen">
@@ -45,20 +44,16 @@ function Login() {
           />
 
           <div className="overlay-content absolute inset-0 flex flex-col items-center justify-center text-center text-white">
-            <h1 className="text-4xl font-bold mb-4">
+            <h1 className="text-8xl font-bold mb-4 opacity-75 capitalize">
               Discover your next UofT club with CLUB-CONNECT!
             </h1>
-            <p className="text-lg">
-              Club connect matches you with the perfect clubs based on your
-              interests.
-            </p>
           </div>
         </div>
 
         {/* log in form */}
         <div className="flex flex-col justify-center gap-16 p-16 w-1/2">
           <div className="flex flex-col gap-4">
-            <h1 className="text-4xl">Log into club connect</h1>
+            <h1 className="text-4xl font-bold">Log in</h1>
             <p>
               Don't have an account?{" "}
               <a className="link" onClick={() => navigate("/signup")}>
@@ -85,13 +80,17 @@ function Login() {
               onChange={(e) => setPassword(e.target.value)}
             />
 
-            <button
-              className="btn btn-primary"
-              onClick={handleLogin}
-            >
+            <button className="btn btn-primary" onClick={handleLogin}>
               Log In
             </button>
           </div>
+
+          <hr class="border-t border-gray-200" />
+
+          <p className="text-center text-lg">
+            Club connect matches you with the perfect clubs based on your
+            interests.
+          </p>
         </div>
       </div>
     </>
