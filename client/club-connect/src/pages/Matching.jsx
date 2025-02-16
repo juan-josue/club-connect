@@ -3,11 +3,24 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart, faX } from "@fortawesome/free-solid-svg-icons";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-function ClubCard({ name, link, description, tags, onLike, onDislike }) {
+const gradients = [
+  "from-blue-300 to-pink-200",
+  "from-green-300 to-yellow-200",
+  "from-purple-300 to-indigo-200",
+  "from-red-300 to-orange-200",
+  "from-teal-300 to-cyan-200"
+];
+
+function getRandomGradient() {
+  return gradients[Math.floor(Math.random() * gradients.length)];
+}
+
+function ClubCard({ name, link, description, tags, onLike, onDislike, gradient }) {
   return (
     <div className="flex flex-col w-[450px] h-[650px] gap-4 bg-base-200 p-8 rounded-2xl shadow-xl">
-      <div className="flex h-[300px] bg-gradient-to-r from-blue-300 to-pink-200 justify-center items-center rounded p-8">
+      <div className={`flex h-[300px] bg-gradient-to-r ${gradient} justify-center items-center rounded p-8`}>
         <h2 className="text-base-100 text-3xl font-bold">{name}</h2>
       </div>
 
@@ -49,6 +62,7 @@ function Matching() {
   const [animationDirection, setAnimationDirection] = useState(0);
   const [clubs, setClubs] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   const location = useLocation();
   const { preferences } = location.state || { preferences: [] };
@@ -62,15 +76,24 @@ function Matching() {
   const onLike = () => {
     setAnimationDirection(-1);
     handleAnimationEnd(() => {
-      setMatches([...matches, clubs[clubIndex]]);
-      setClubIndex((prev) => Math.min(prev + 1, clubs.length - 1));
+      const newMatches = [...matches, clubs[clubIndex]];
+      if (clubIndex === clubs.length - 1) {
+        navigate("/results", { state: { results: newMatches } });
+      } else {
+        setMatches(newMatches);
+        setClubIndex((prev) => prev + 1);
+      }
     });
   };
 
   const onDislike = () => {
     setAnimationDirection(1);
     handleAnimationEnd(() => {
-      setClubIndex((prev) => Math.min(prev + 1, clubs.length - 1));
+      if (clubIndex === clubs.length - 1) {
+        navigate("/results", { state: { results: matches } });
+      } else {
+        setClubIndex((prev) => Math.min(prev + 1, clubs.length - 1));
+      }
     });
   };
 
@@ -79,9 +102,6 @@ function Matching() {
   useEffect(() => {
     const fetchClubs = async () => {
       try {
-        console.log("what were sending: ", {
-          preferences: Object.values(preferences).flat(),
-        });
         const response = await fetch("http://127.0.0.1:5000/api/clubs", {
           method: "POST",
           headers: {
@@ -97,8 +117,14 @@ function Matching() {
         }
 
         const data = await response.json();
-        console.log("what we got back: ", { data });
-        setClubs(data);
+
+        const clubsWithGradients = data.map((club) => ({
+          ...club,
+          gradient: getRandomGradient()
+        }));
+
+        setClubs(clubsWithGradients);
+
         setLoading(false);
       } catch (error) {
         console.error(error.message);
@@ -133,6 +159,7 @@ function Matching() {
                 tags={clubs[clubIndex]["tags"]}
                 onLike={onLike}
                 onDislike={onDislike}
+                gradient={clubs[clubIndex]["gradient"]}
               />
             )}
           </motion.div>
