@@ -107,13 +107,24 @@ function Preferences() {
       stepName: "Campus",
       header: "Which campuses?",
       body: "Select which of the three Unviersity of Toronto campuses you'd like be matched with.",
-      tags: ["Mississauga", "St. George", "Scarborough"],
+      tags: ["UTM", "St George", "UTSC"],
     },
     {
       stepName: "Interests",
       header: "What sort of things are you into?",
       body: "Select some of the following key words that best resonatte with you.",
-      tags: ["Sports", "Tech", "Arts", "Writing", "Science", "Dramteurgy"],
+      tags: [
+        "Academics & Research",
+        "Arts & Culture",
+        "Cultural & Identity",
+        "Community & Social Impact",
+        "Faith & Spirituality",
+        "Social & Recreational",
+        "Technology & Innovation",
+        "Career & Professional Development",
+        "Political & Social Discussions",
+        "Health & Wellness",
+      ],
     },
     {
       stepName: "Time",
@@ -140,7 +151,7 @@ function Preferences() {
 
   return (
     <div className="flex justify-center items-center h-screen">
-      <div className="flex flex-col w-[450px] gap-16">
+      <div className="flex flex-col w-[600px] gap-16">
         <Step
           step={stepCount}
           onContinue={onContinue}
