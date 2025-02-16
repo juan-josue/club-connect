@@ -91,6 +91,7 @@ def summarize_description(club_list):
 
 
 @app.route("/register", methods=["POST"])
+@cross_origin()
 def register():
     data = request.get_json()
     utorid = data.get("utorid")
@@ -115,6 +116,7 @@ def register():
 
 
 @app.route("/login", methods=["POST"])
+@cross_origin()
 def login():
     data = request.get_json()
     utorid = data.get("utorid")

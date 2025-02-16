@@ -2,33 +2,34 @@ import React, { useState } from "react";
 import videoBg from "../assets/bg-video.mp4";
 import { useNavigate } from "react-router-dom";
 
-function Login() {
+function Signup() {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [utorid, setUtorid] = useState("");
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
 
-  const handleLogin = async () => {
+  const handleRegister = async () => {
     try {
-      const response = await fetch("http://127.0.0.1:5000/login", {
+      const response = await fetch("http://127.0.0.1:5000/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ utorid, password }),
+        body: JSON.stringify({ utorid, password, firstName, lastName }),
       });
 
       const data = await response.json();
       if (response.ok) {
         navigate("/preferences", { state: { user: data.user } });
       } else {
-        setErrorMessage(data.error || "Login failed. Please try again.");
+        setErrorMessage(data.error || "Register failed. Please try again.");
       }
     } catch (error) {
-      console.error("Error logging in:", error);
+      console.error("Error registering:", error);
     }
   };
-
 
   return (
     <>
@@ -58,16 +59,35 @@ function Login() {
         {/* log in form */}
         <div className="flex flex-col justify-center gap-16 p-16 w-1/2">
           <div className="flex flex-col gap-4">
-            <h1 className="text-4xl">Log into club connect</h1>
+            <h1 className="text-4xl">Sign up for club connect</h1>
             <p>
-              Don't have an account?{" "}
-              <a className="link" onClick={() => navigate("/signup")}>
-                Sign up
+              Already have an account?{" "}
+              <a className="link" onClick={() => navigate("/")}>
+                Log In
               </a>
             </p>
           </div>
 
           <div className="flex flex-col gap-4">
+            <div className="flex gap-4">
+              <input
+                type="text"
+                placeholder="First Name"
+                className="input w-1/2"
+                required
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+              />
+              <input
+                type="text"
+                placeholder="Last Name"
+                className="input w-1/2"
+                required
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+              />
+            </div>
+
             <input
               type="text"
               placeholder="utorid"
@@ -85,10 +105,7 @@ function Login() {
               onChange={(e) => setPassword(e.target.value)}
             />
 
-            <button
-              className="btn btn-primary"
-              onClick={handleLogin}
-            >
+            <button className="btn btn-primary" onClick={handleRegister}>
               Sign up
             </button>
           </div>
@@ -98,4 +115,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Signup;
