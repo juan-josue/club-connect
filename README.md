@@ -17,6 +17,17 @@ With nearly 1,500 clubs at UofT, students often struggle to find the ones that m
 **Demo**  
 Video Demo with pictures and additional information on Devpost: [Devpost](https://devpost.com/software/memory-lane-pa6cqu)
 
+**Pictures**
+![Login Page with Video Background](https://d112y698adiu2z.cloudfront.net/photos/production/software_photos/003/268/768/datas/gallery.jpg)  
+![Campus Selection Step](https://d112y698adiu2z.cloudfront.net/photos/production/software_photos/003/268/773/datas/gallery.jpg)  
+![Interest Selection Step](https://d112y698adiu2z.cloudfront.net/photos/production/software_photos/003/268/774/datas/gallery.jpg)
+![Time Commitment Selection Step](https://d112y698adiu2z.cloudfront.net/photos/production/software_photos/003/268/775/datas/gallery.jpg)
+![Style Selection Step](https://d112y698adiu2z.cloudfront.net/photos/production/software_photos/003/268/776/datas/gallery.jpg)
+![Example Match 1](https://d112y698adiu2z.cloudfront.net/photos/production/software_photos/003/268/777/datas/gallery.jpg)
+![Example Match 2](https://d112y698adiu2z.cloudfront.net/photos/production/software_photos/003/268/778/datas/gallery.jpg)
+![Results After Matching](https://d112y698adiu2z.cloudfront.net/photos/production/software_photos/003/268/780/datas/gallery.jpg)
+![Matched Example with Apply Button](https://d112y698adiu2z.cloudfront.net/photos/production/software_photos/003/268/781/datas/gallery.jpg)
+
 **Built With**
 - **ReactJS** – Frontend framework for a seamless user experience.
 - **TailwindCSS** – Modern styling for a clean and responsive UI.
