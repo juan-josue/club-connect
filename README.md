@@ -15,8 +15,7 @@ With nearly 1,500 clubs at UofT, students often struggle to find the ones that m
 - Secure Authentication – Uses SQLAlchemy to manage user accounts securely.
 
 **Demo**  
-Video Demo with pictures and additional information on Devpost:  
-Learn More: Devpost - [Devpost](https://devpost.com/software/memory-lane-pa6cqu)
+Video Demo with pictures and additional information on Devpost: [Devpost](https://devpost.com/software/memory-lane-pa6cqu)
 
 **Built With**
 - **ReactJS** – Frontend framework for a seamless user experience.
